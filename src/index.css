@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-brand-primary: #0A0A0A;
+  --color-brand-accent: #3B82F6;
+  --color-brand-muted: #64748B;
+  --color-brand-surface: #F8FAFC;
+  
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-white text-brand-primary antialiased;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap');
+
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+.f-pattern-container {
+  @apply max-w-7xl mx-auto px-6 lg:px-8;
+}
+
+.cta-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}
