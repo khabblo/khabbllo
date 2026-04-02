@@ -1,5 +1,5 @@
 {
   "name": "Khabbllo",
-  "description": "Premium AI-driven conversion intelligence platform for high-growth brands.",
-  "requestFramePermissions": []
+  "description": "Premium AI-driven conversion intelligence platform and Instagram-like social ecosystem for high-growth brands.",
+  "requestFramePermissions": ["camera", "microphone"]
 }

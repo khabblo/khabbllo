@@ -1,0 +1,103 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information for the social ecosystem.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user." },
+        "displayName": { "type": "string", "description": "The name shown to other users." },
+        "photoURL": { "type": "string", "description": "The URL of the user's profile picture." },
+        "bio": { "type": "string", "description": "A short description of the user." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the profile was created." }
+      },
+      "required": ["uid", "displayName", "createdAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "A social post containing an image and caption.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "The UID of the user who created the post." },
+        "authorName": { "type": "string", "description": "The name of the author (denormalized)." },
+        "authorPhoto": { "type": "string", "description": "The photo of the author (denormalized)." },
+        "imageUrl": { "type": "string", "description": "The URL of the posted image." },
+        "caption": { "type": "string", "description": "The text accompanying the image." },
+        "likesCount": { "type": "integer", "description": "Total number of likes." },
+        "commentsCount": { "type": "integer", "description": "Total number of comments." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the post was created." }
+      },
+      "required": ["authorId", "imageUrl", "createdAt"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A like on a post by a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who liked the post." },
+        "postId": { "type": "string", "description": "The ID of the post being liked." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the like was created." }
+      },
+      "required": ["userId", "postId", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a post by a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who commented." },
+        "userName": { "type": "string", "description": "The name of the user (denormalized)." },
+        "text": { "type": "string", "description": "The content of the comment." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the comment was created." }
+      },
+      "required": ["userId", "text", "createdAt"]
+    },
+    "Reel": {
+      "title": "Reel",
+      "description": "A short video or photo reel.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "The UID of the user who created the reel." },
+        "authorName": { "type": "string", "description": "The name of the author (denormalized)." },
+        "authorPhoto": { "type": "string", "description": "The photo of the author (denormalized)." },
+        "mediaUrl": { "type": "string", "description": "The URL of the video or photo." },
+        "mediaType": { "type": "string", "enum": ["video", "photo"], "description": "The type of media." },
+        "caption": { "type": "string", "description": "The text accompanying the reel." },
+        "likesCount": { "type": "integer", "description": "Total number of likes." },
+        "commentsCount": { "type": "integer", "description": "Total number of comments." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the reel was created." }
+      },
+      "required": ["authorId", "mediaUrl", "mediaType", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores individual user profiles."
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Stores all social posts."
+    },
+    "/posts/{postId}/likes/{userId}": {
+      "schema": "Like",
+      "description": "Stores likes for a specific post."
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Stores comments for a specific post."
+    },
+    "/reels/{reelId}": {
+      "schema": "Reel",
+      "description": "Stores all reels."
+    },
+    "/reels/{reelId}/likes/{userId}": {
+      "schema": "Like",
+      "description": "Stores likes for a specific reel."
+    },
+    "/reels/{reelId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Stores comments for a specific reel."
+    }
+  }
+}
